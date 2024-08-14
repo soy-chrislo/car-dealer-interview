@@ -1,12 +1,35 @@
 import type { Vehicle } from "@/hooks/types";
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "./ui/tooltip";
+import { useVehicle } from "@/provider/VehicleContext";
 
-export function VehicleCard(vehicle: Vehicle) {
+export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
+	const { vehicleId, setVehicleId } = useVehicle();
 	return (
-		<Card className="w-64">
+		<Card
+			className="w-64 cursor-pointer"
+			onClick={() => setVehicleId(vehicle.MakeId)}
+			style={{
+				border: vehicle.MakeId === vehicleId ? "1px solid gray" : undefined,
+			}}
+		>
 			<CardHeader>
-				<CardTitle>{vehicle.MakeName}</CardTitle>
+				<CardTitle className="truncate whitespace-nowrap overflow-hidden">
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger>{vehicle.MakeName}</TooltipTrigger>
+							<TooltipContent className="overflow-hidden">
+								{vehicle.MakeName}
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<ul>

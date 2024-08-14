@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
-import type { Response } from "./types";
+import type { Response, Vehicle } from "./types";
 
-export function useFetchVehicle() {
-	const [data, setData] = useState<Response["Results"]>([]);
+export function useFetchVehicles() {
+	const [data, setData] = useState<Response<Vehicle>["Results"]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 	const URL =

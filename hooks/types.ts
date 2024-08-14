@@ -5,9 +5,16 @@ export interface Vehicle {
 	VehicleTypeName: string;
 }
 
-export interface Response {
+export interface VehicleType {
+	Make_ID: number;
+	Make_Name: string;
+	Model_ID: number;
+	Model_Name: string;
+}
+
+export interface Response<T> {
 	Count: number;
 	Message: string;
 	SearchCriteria: string;
-	Results: Vehicle[];
+	Results: T[];
 }
