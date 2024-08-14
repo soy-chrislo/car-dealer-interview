@@ -1,19 +1,36 @@
-import { useFetchVehicles } from "@/hooks/useFetchVehicles";
-import React, { useEffect, useState } from "react";
-import { VehicleCard } from "./VehicleCard";
+import { Suspense } from "react";
+import { CarsList } from "./CarsList";
+import { VehicleCardSkeleton } from "./VehicleCardSkeleton";
 
 export function CarsView({ className }: { className?: string }) {
-	const { fetchVehicles, data } = useFetchVehicles();
+	// ! Non-suspense way
+	// const { fetchVehicles, data } = useFetchVehicles();
 
-	useEffect(() => {
-		fetchVehicles();
-	}, [fetchVehicles]);
+	// useEffect(() => {
+	// 	fetchVehicles();
+	// }, [fetchVehicles]);
+
 	return (
-		<div className={`${className} pt-5`}>
+		<div className={`${className} pt-5 pb-5`}>
 			<div className="flex flex-wrap justify-center items-center gap-5">
-				{data.map((vehicle) => (
+				<Suspense
+					fallback={
+						<div className="flex flex-wrap justify-center items-center gap-5">
+							{[...Array(10)].map((_, i) => (
+								// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+								<VehicleCardSkeleton key={i} />
+							))}
+						</div>
+					}
+				>
+					<CarsList />
+				</Suspense>
+				
+				{
+				// ! Non-suspense way
+				/* {data.map((vehicle: Vehicle) => (
 					<VehicleCard key={vehicle.MakeId} vehicle={vehicle} />
-				))}
+				))} */}
 			</div>
 		</div>
 	);

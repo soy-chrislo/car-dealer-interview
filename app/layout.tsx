@@ -1,13 +1,7 @@
 "use client";
-import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { VehicleProvider } from "@/provider/VehicleContext";
-
-const fontSans = FontSans({
-	subsets: ["latin"],
-	variable: "--font-sans",
-});
 
 export default function RootLayout({
 	children,
@@ -16,12 +10,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body
-				className={cn(
-					"min-h-screen bg-background font-sans antialiased",
-					fontSans.variable,
-				)}
-			>
+			<body className={cn("min-h-screen bg-background font-sans antialiased")}>
 				<VehicleProvider>{children}</VehicleProvider>
 			</body>
 		</html>
